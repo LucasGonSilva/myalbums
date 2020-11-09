@@ -1,0 +1,34 @@
+<?php
+// module/Blog/view/blog/blog/index.phtml:
+
+$title = 'My blogs';
+$this->headTitle($title);
+?>
+<h1><?php echo $this->escapeHtml($title); ?></h1>
+<p>
+    <a href="<?php echo $this->url('blog', array('action' => 'add')); ?>">Add new blog</a>
+</p>
+
+<table class="table">
+    <tr>
+        <th>Title</th>
+        <th>Text</th>
+        <th></th>
+    </tr>
+    <?php foreach ($blogs as $blog) : ?>
+        <tr>
+            <td><?php echo $this->escapeHtml($blog->title); ?></td>
+            <td><?php echo $this->escapeHtml($blog->text); ?></td>
+            <td>
+                <a href="<?php echo $this->url('blog',
+                    array('action' => 'edit', 'id' => $blog->id)); ?>" class="btn btn-info btn-xs"><i class="glyphicon glyphicon-pencil"></i></a>
+                <a href="<?php echo $this->url('blog',
+                    array('action' => 'delete', 'id' => $blog->id)); ?>" class="btn btn-danger btn-xs"><i class="glyphicon glyphicon-trash"></i></a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</table>
+<?php
+$this->headScript()
+    ->appendFile($this->basepath("js/blog/index.js"));
+?>
